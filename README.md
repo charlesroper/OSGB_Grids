@@ -3,6 +3,8 @@ OSGB_Grids
 
 A collection of Ordance Survey National Grids in Shapefile [OSGB 1936] and GeoJSON [WGS84] formats.
 
+[[Download these files](https://github.com/charlesroper/OSGB_Grids/archive/master.zip)]
+
 <p xmlns:dct="http://purl.org/dc/terms/">
   <a rel="license"
      href="http://creativecommons.org/publicdomain/zero/1.0/">
