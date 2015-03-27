@@ -1,7 +1,7 @@
-OSGB_Grids
+OSGB Grids
 ==========
 
-A collection of Ordance Survey National Grids in Shapefile [OSGB 1936] and GeoJSON [WGS84] formats.
+A collection of Ordance Survey National Grids in Shapefile (.shp) [OSGB 1936] and GeoJSON (.geojson) [WGS84] formats.
 
 [[Download these files](https://github.com/charlesroper/OSGB_Grids/archive/master.zip)]
 
