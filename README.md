@@ -70,7 +70,9 @@ Derived fields
 corner. Run it from the repository root with DuckDB and the spatial
 extension:
 
-    duckdb < sql/25km_letter_ref.sql
+```bash
+duckdb < sql/25km_letter_ref.sql
+```
 
 It prints feature, reference, and geometry counts. Export examples are at
 the end of the script.
