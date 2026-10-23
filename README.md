@@ -2,29 +2,41 @@ OSGB Grids
 ==========
 
 Polygon tiles covering Great Britain on the Ordnance Survey National Grid,
-at seven tile sizes from 100 km to 1 km. Each size is complete in two
-formats: GeoJSON in WGS84 (EPSG:4326) and Shapefile in OSGB 1936 / British
-National Grid (EPSG:27700).
+at seven tile sizes from 100 km to 1 km. Each size is complete in three
+formats: GeoJSON in WGS84 (EPSG:4326), Shapefile in OSGB 1936 / British
+National Grid (EPSG:27700), and GeoParquet in OSGB 1936 / British National
+Grid (EPSG:27700).
 
 [[Download all tiles (ZIP)](https://github.com/charlesroper/OSGB_Grids/releases/latest/download/OSGB_Grids.zip)]
 
 Files
 -----
 
-Each tile size has one GeoJSON file in `GeoJSON/` and one Shapefile set in
-`Shapefile/`:
+Each tile size has one GeoJSON file in `GeoJSON/`, one Shapefile set in
+`Shapefile/`, and one GeoParquet file in `GeoParquet/`:
 
-| Size  | Features | GeoJSON                        | Shapefile                        | Fields                                                                                                          |
-| ----- | -------- | ------------------------------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| 100km | 56       | `OSGB_Grid_100km.geojson`      | `OSGB_Grid_100km.shp`            | `TILE_NAME`, `250K`                                                                                             |
-| 50km  | 163      | `OSGB_Grid_50km.geojson`       | `OSGB_Grid_50km.shp`             | `TILE_NAME`                                                                                                     |
-| 25km  | 537      | `OSGB_Grid_25km.geojson`       | `OSGB_Grid_25km.shp`             | `TILE_REF`, `LETTER_REF`                                                                                        |
-| 20km  | 824      | `OSGB_Grid_20km.geojson`       | `OSGB_Grid_20km.shp`             | `PLAN_NO`, `50K`, `ENGLAND`, `SCOTLAND`, `WALES`                                                                |
-| 10km  | 2883     | `OSGB_Grid_10km.geojson`       | `OSGB_Grid_10km.shp`             | `TILE_NAME`, `25K`, `ENGLAND`, `SCOTLAND`, `WALES`                                                              |
-| 5km   | 10707    | `OSGB_Grid_5km.geojson`        | `OSGB_Grid_5km.shp`              | `TILE_NAME`, `DATAFOR10K`, `DATAFOROSS`, `DATAFORLFP`, `DATAFORL0`, `DATAFORL1`, `ENGLAND`, `SCOTLAND`, `WALES` |
-| 1km   | 286000   | `OSGB_Grid_1km.geojson`        | `OSGB_Grid_1km.shp`              | `PLAN_NO`                                                                                                       |
+| Size  | Features | GeoJSON                        | Shapefile                        | GeoParquet                        | Fields                                                                                                          |
+| ----- | -------- | ------------------------------ | -------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| 100km | 56       | `OSGB_Grid_100km.geojson`      | `OSGB_Grid_100km.shp`            | `OSGB_Grid_100km.parquet`         | `TILE_NAME`, `250K`                                                                                             |
+| 50km  | 163      | `OSGB_Grid_50km.geojson`       | `OSGB_Grid_50km.shp`             | `OSGB_Grid_50km.parquet`          | `TILE_NAME`                                                                                                     |
+| 25km  | 537      | `OSGB_Grid_25km.geojson`       | `OSGB_Grid_25km.shp`             | `OSGB_Grid_25km.parquet`          | `TILE_REF`, `LETTER_REF`                                                                                        |
+| 20km  | 824      | `OSGB_Grid_20km.geojson`       | `OSGB_Grid_20km.shp`             | `OSGB_Grid_20km.parquet`          | `PLAN_NO`, `50K`, `ENGLAND`, `SCOTLAND`, `WALES`                                                                |
+| 10km  | 2883     | `OSGB_Grid_10km.geojson`       | `OSGB_Grid_10km.shp`             | `OSGB_Grid_10km.parquet`          | `TILE_NAME`, `25K`, `ENGLAND`, `SCOTLAND`, `WALES`                                                              |
+| 5km   | 10707    | `OSGB_Grid_5km.geojson`        | `OSGB_Grid_5km.shp`              | `OSGB_Grid_5km.parquet`           | `TILE_NAME`, `DATAFOR10K`, `DATAFOROSS`, `DATAFORLFP`, `DATAFORL0`, `DATAFORL1`, `ENGLAND`, `SCOTLAND`, `WALES` |
+| 1km   | 286000   | `OSGB_Grid_1km.geojson`        | `OSGB_Grid_1km.shp`              | `OSGB_Grid_1km.parquet`           | `PLAN_NO`                                                                                                       |
 
 A Shapefile set is `.shp .shx .dbf .prj .cpg .qpj`. Keep the parts together.
+
+GeoParquet
+----------
+
+Each GeoParquet file is GeoParquet 1.0 with a `geometry` column, ZSTD
+compression, and the same fields as its Shapefile. The whole set is 2.3 MB.
+Regenerate a file from its Shapefile with DuckDB:
+
+    duckdb -c "LOAD spatial; SET geometry_always_xy=true; COPY (SELECT * EXCLUDE (OGC_FID) RENAME (geom AS geometry) FROM ST_Read('Shapefile/OSGB_Grid_1km.shp')) TO 'GeoParquet/OSGB_Grid_1km.parquet' (FORMAT PARQUET, COMPRESSION ZSTD);"
+
+terrio and GDAL write SNAPPY only; DuckDB is used here for ZSTD.
 
 25km tile references
 --------------------

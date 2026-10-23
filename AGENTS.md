@@ -1,9 +1,10 @@
 # OSGB Grids
 
 Working branch of the OSGB_Grids dataset (origin: charlesroper/OSGB_Grids).
-Seven tile sizes, 100km to 1km, in Shapefile (OSGB 1936) and GeoJSON
-(WGS84). This branch adds `LETTER_REF` and corrected 25km labels, so local
-data can differ from upstream. License: CC0; keep `LICENSE.txt`.
+Seven tile sizes, 100km to 1km, in Shapefile and GeoParquet (OSGB 1936)
+and GeoJSON (WGS84). This branch adds `LETTER_REF` and corrected 25km
+labels, so local data can differ from upstream. License: CC0; keep
+`LICENSE.txt`.
 
 Not an application codebase. There is no build or test step; validation
 means checking the data, as described below.
@@ -12,6 +13,7 @@ means checking the data, as described below.
 
 - `GeoJSON/` — EPSG:4326, one file per tile size.
 - `Shapefile/` — EPSG:27700, one sidecar set per tile size.
+- `GeoParquet/` — EPSG:27700, GeoParquet 1.0 with `geometry` column, ZSTD.
 - `README.md` — canonical documentation for published tile refs.
 - `sql/` — DuckDB queries that rebuild derived fields.
 
@@ -59,9 +61,9 @@ means checking the data, as described below.
 
 - Shapefile sidecars travel as a set: `.shp .shx .dbf .prj .cpg .qpj`.
   Never rename, delete, or replace one alone.
-- Shapefile CRS: OSGB 1936 / British National Grid (EPSG:27700).
-  GeoJSON CRS: WGS84 (EPSG:4326). Do not mix them.
-- Keep both formats in sync after any data change.
+- Shapefile and GeoParquet CRS: OSGB 1936 / British National Grid
+  (EPSG:27700). GeoJSON CRS: WGS84 (EPSG:4326). Do not mix them.
+- Keep all three formats in sync after any data change.
 - Fields differ by tile size; only 25km has `TILE_REF`/`LETTER_REF`.
   Run `terrio info FILE` before writing a query.
 
@@ -79,14 +81,14 @@ means checking the data, as described below.
 
 - Prefer terrio. If it is unavailable, use `ogrinfo -so`/`ogr2ogr` or
   Python (`pyogrio`, `fiona`, `shapely`) for the same checks.
-- After any change, check both formats: `terrio info FILE` (add `--json` to
+- After any change, check every format: `terrio info FILE` (add `--json` to
   compare programmatically). It reports driver, geometry, feature count,
   CRS, extent, and fields.
-- Expected feature counts, identical in Shapefile and GeoJSON:
+- Expected feature counts, identical in Shapefile, GeoJSON, and GeoParquet:
   100km 56 · 50km 163 · 25km 537 · 20km 824 · 10km 2883 ·
   5km 10707 · 1km 286000.
-- Expected CRS: Shapefile EPSG:27700, GeoJSON EPSG:4326.
-- 25km baseline, both formats: 537 features, 537 unique `TILE_REF`,
+- Expected CRS: Shapefile and GeoParquet EPSG:27700, GeoJSON EPSG:4326.
+- 25km baseline, all formats: 537 features, 537 unique `TILE_REF`,
   537 unique `LETTER_REF`, 0 invalid geometries.
 - Compare feature counts, fields, and CRS across formats. Do not compare
   raw extents: Shapefile reports metres, GeoJSON degrees.
@@ -103,9 +105,10 @@ means checking the data, as described below.
 
 ## Git
 
-- Repo is ~143 MB, mostly data: GeoJSON is 99 MB of text, Shapefile is
-  44 MB of binary. Never `git diff` `.shp`/`.dbf`; avoid diffing the large
-  GeoJSON. Use `git status --short` and `git diff --stat`.
+- Repo is ~145 MB, mostly data: GeoJSON is 99 MB of text, Shapefile is
+  44 MB of binary, GeoParquet is 2.3 MB. Never `git diff` `.shp`/`.dbf`;
+  avoid diffing the large GeoJSON. Use `git status --short` and
+  `git diff --stat`.
 - Stage explicit paths. Do not use `git add -A`; a regenerated 93 MB file
   could slip in.
 - Do not commit `.codegraph/` or `.projectmem/`.
