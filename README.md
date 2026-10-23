@@ -34,9 +34,19 @@ Each GeoParquet file is GeoParquet 1.0 with a `geometry` column, ZSTD
 compression, and the same fields as its Shapefile. The whole set is 2.3 MB.
 Regenerate a file from its Shapefile with DuckDB:
 
-    duckdb -c "LOAD spatial; SET geometry_always_xy=true; COPY (SELECT * EXCLUDE (OGC_FID) RENAME (geom AS geometry) FROM ST_Read('Shapefile/OSGB_Grid_1km.shp')) TO 'GeoParquet/OSGB_Grid_1km.parquet' (FORMAT PARQUET, COMPRESSION ZSTD);"
+```bash
+duckdb -c "
+LOAD spatial;
+SET geometry_always_xy = true;
+COPY (
+  SELECT * EXCLUDE (OGC_FID) RENAME (geom AS geometry)
+  FROM ST_Read('Shapefile/OSGB_Grid_1km.shp')
+) TO 'GeoParquet/OSGB_Grid_1km.parquet' (FORMAT PARQUET, COMPRESSION ZSTD);
+"
+```
 
-terrio and GDAL write SNAPPY only; DuckDB is used here for ZSTD.
+Change `1km` to any tile size. terrio and GDAL write SNAPPY only; DuckDB
+is used here for ZSTD.
 
 25km tile references
 --------------------
