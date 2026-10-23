@@ -21,9 +21,9 @@ Each tile size has one GeoJSON file in `GeoJSON/`, one Shapefile set in
 | 50km  | 163      | `OSGB_Grid_50km.geojson`       | `OSGB_Grid_50km.shp`             | `OSGB_Grid_50km.parquet`          | `TILE_NAME`                                                                                                     |
 | 25km  | 537      | `OSGB_Grid_25km.geojson`       | `OSGB_Grid_25km.shp`             | `OSGB_Grid_25km.parquet`          | `TILE_REF`, `LETTER_REF`                                                                                        |
 | 20km  | 824      | `OSGB_Grid_20km.geojson`       | `OSGB_Grid_20km.shp`             | `OSGB_Grid_20km.parquet`          | `PLAN_NO`, `50K`, `ENGLAND`, `SCOTLAND`, `WALES`                                                                |
-| 10km  | 2883     | `OSGB_Grid_10km.geojson`       | `OSGB_Grid_10km.shp`             | `OSGB_Grid_10km.parquet`          | `TILE_NAME`, `25K`, `ENGLAND`, `SCOTLAND`, `WALES`                                                              |
-| 5km   | 10707    | `OSGB_Grid_5km.geojson`        | `OSGB_Grid_5km.shp`              | `OSGB_Grid_5km.parquet`           | `TILE_NAME`, `DATAFOR10K`, `DATAFOROSS`, `DATAFORLFP`, `DATAFORL0`, `DATAFORL1`, `ENGLAND`, `SCOTLAND`, `WALES` |
-| 1km   | 286000   | `OSGB_Grid_1km.geojson`        | `OSGB_Grid_1km.shp`              | `OSGB_Grid_1km.parquet`           | `PLAN_NO`                                                                                                       |
+| 10km  | 2886     | `OSGB_Grid_10km.geojson`       | `OSGB_Grid_10km.shp`             | `OSGB_Grid_10km.parquet`          | `TILE_NAME`, `25K`, `ENGLAND`, `SCOTLAND`, `WALES`                                                              |
+| 5km   | 10719    | `OSGB_Grid_5km.geojson`        | `OSGB_Grid_5km.shp`              | `OSGB_Grid_5km.parquet`           | `TILE_NAME`, `DATAFOR10K`, `DATAFOROSS`, `DATAFORLFP`, `DATAFORL0`, `DATAFORL1`, `ENGLAND`, `SCOTLAND`, `WALES` |
+| 1km   | 286300   | `OSGB_Grid_1km.geojson`        | `OSGB_Grid_1km.shp`              | `OSGB_Grid_1km.parquet`           | `PLAN_NO`                                                                                                       |
 
 A Shapefile set is `.shp .shx .dbf .prj .cpg .qpj`. Keep the parts together.
 

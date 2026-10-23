@@ -85,8 +85,8 @@ means checking the data, as described below.
   compare programmatically). It reports driver, geometry, feature count,
   CRS, extent, and fields.
 - Expected feature counts, identical in Shapefile, GeoJSON, and GeoParquet:
-  100km 56 · 50km 163 · 25km 537 · 20km 824 · 10km 2883 ·
-  5km 10707 · 1km 286000.
+  100km 56 · 50km 163 · 25km 537 · 20km 824 · 10km 2886 ·
+  5km 10719 · 1km 286300.
 - Expected CRS: Shapefile and GeoParquet EPSG:27700, GeoJSON EPSG:4326.
 - 25km baseline, all formats: 537 features, 537 unique `TILE_REF`,
   537 unique `LETTER_REF`, 0 invalid geometries.
