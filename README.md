@@ -6,7 +6,7 @@ at seven tile sizes from 100 km to 1 km. Each size is complete in two
 formats: GeoJSON in WGS84 (EPSG:4326) and Shapefile in OSGB 1936 / British
 National Grid (EPSG:27700).
 
-[[Download the repository archive](https://github.com/charlesroper/OSGB_Grids/archive/master.zip)]
+[[Download all tiles (ZIP)](https://github.com/charlesroper/OSGB_Grids/releases/latest/download/OSGB_Grids.zip)]
 
 Files
 -----
