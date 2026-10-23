@@ -63,6 +63,9 @@ A 25km tile has two `TILE_REF` forms:
 `LETTER_REF` gives the letter form for every tile. It is derived from the
 tile's south-west corner, so for letter-form tiles it equals `TILE_REF`.
 
+Four cells had duplicated or misplaced `TILE_REF` labels; they were
+corrected from geometry to `NN7525`, `NX7525`, `NY5000`, and `HU5050`.
+
 Derived fields
 --------------
 
