@@ -103,6 +103,15 @@ means checking the data, as described below.
 - No source code here, so code-index tools have nothing to index. If code
   is added and an index tool is configured, build the index first.
 
+## Formatting
+
+- Present commands, SQL, and code in fenced blocks with a language tag
+  (`bash`, `sql`, `python`).
+- Break long commands over several lines. Keep the result copy-pasteable.
+- One clause per line; no single-line command that scrolls sideways.
+- Use an indented block only for a short one-line shell snippet.
+- Wrap file paths, field names, and inline commands in backticks.
+
 ## Git
 
 - Repo is ~145 MB, mostly data: GeoJSON is 99 MB of text, Shapefile is
